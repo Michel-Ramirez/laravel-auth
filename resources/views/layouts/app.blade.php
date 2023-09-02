@@ -21,6 +21,12 @@
     {{-- CDN --}}
     @yield('cdn')
     <!-- Usando Vite -->
+    <style>
+        body {
+            display: none;
+        }
+    </style>
+
     @vite(['resources/js/app.js'])
 </head>
 
