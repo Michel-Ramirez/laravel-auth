@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'Crea progetto')
+@section('title', 'Modifica il progetto')
 
 @section('content')
     <header class="my-5">
-        <h1 class="text-center">Crea il nuovo progetto</h1>
+        <h1 class="text-center">Modifica il progetto</h1>
     </header>
     <div class="d-flex justify-content-end m-5">
         <a href="{{ route('admin.projects.index') }}" class="btn btn-secondary">

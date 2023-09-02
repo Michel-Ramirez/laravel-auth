@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Project;
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule as ValidationRule;
 
 class ProjectController extends Controller
 {
@@ -22,7 +24,9 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create');
+
+        $project = new Project;
+        return view('admin.projects.create', compact('project'));
     }
 
     /**
@@ -30,7 +34,22 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        // $request->validate([
+
+        //     'title' => ['required', 'string', Rule::unique('comics')],
+        //     'description' => 'required|string',
+        //     'image' => ''
+        // ], []);
+
+        $project = new Project();
+
+        $project->fill($data);
+
+        $project->save();
+
+        return to_route('admin.project.show', $project);
     }
 
     /**
@@ -44,9 +63,9 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Project $project)
     {
-        //
+        return view('admin.projects.edit', compact('project'));
     }
 
     /**

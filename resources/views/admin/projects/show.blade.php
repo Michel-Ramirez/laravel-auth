@@ -7,6 +7,9 @@
         <a href="{{ route('admin.projects.index') }}" class="me-3 btn btn-sm btn-secondary">
             <i class="fas fa-arrow-left me-2"></i> Torna indietro
         </a>
+        <a href="{{ route('admin.projects.edit', $project) }}" class="me-3 btn btn-sm btn-warning">
+            <i class="fas fa-arrow-left me-2"></i> Modifica
+        </a>
         <form action="{{ route('admin.projects.destroy', $project) }}" method="post">
             @csrf
             @method('DELETE')

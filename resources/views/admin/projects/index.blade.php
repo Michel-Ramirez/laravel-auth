@@ -36,7 +36,7 @@
                             <a href="{{ route('admin.projects.show', $project) }}" class="btn btn-sm btn-light">
                                 <i class="fas fa-eye"></i>
                             </a>
-                            <a href="" class="btn btn-sm btn-light mx-2">
+                            <a href="{{ route('admin.projects.edit', $project) }}" class="btn btn-sm btn-light mx-2">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </a>
                             <form action="{{ route('admin.projects.destroy', $project) }}" method="post">
