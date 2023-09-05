@@ -24,7 +24,7 @@
             <p class="">{{ $project->description }}</p>
         </div>
         <div class="col-4">
-            <img src="{{ $project->image }}" alt="{{ $project->title }}" class="img-fluid">
+            <img src="{{ asset($project->image) }}" alt="{{ $project->title }}" class="img-fluid">
         </div>
     </div>
     <div class="d-flex mt-5">
