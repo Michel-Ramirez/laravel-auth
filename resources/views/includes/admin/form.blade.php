@@ -80,3 +80,10 @@
 
     </div>
 </div>
+
+@section('scripts')
+    <script>
+        const placeHolder = 'http://marcolanci.it/utils/placeholder.jpg';
+        const
+    </script>
+@endsection
