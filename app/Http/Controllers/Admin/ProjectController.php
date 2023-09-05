@@ -42,7 +42,7 @@ class ProjectController extends Controller
 
             'title' => ['required', 'string', Rule::unique('projects')],
             'description' => 'required|string',
-            'image' => 'null|image:jpg.jpeg,png',
+            'image' => 'nullable|image:jpg.jpeg,png',
 
         ], [
             'title.required' => 'Questo campo è obbligatorio',
@@ -63,7 +63,7 @@ class ProjectController extends Controller
             $data['image'] = $img_url;
         }
 
-        $project->slug = Str::class($data['title'], '-');
+        $project->slug = Str::slug($data['title'], '-');
 
         $project->fill($data);
 
