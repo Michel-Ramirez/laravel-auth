@@ -37,30 +37,31 @@ class ProjectController extends Controller
     {
         $data = $request->all();
 
+        // dd($data);
         $request->validate([
 
             'title' => ['required', 'string', Rule::unique('projects')],
             'description' => 'required|string',
-            // 'image' => 'url:http, https',
+            'image' => 'null|image:jpg.jpeg,png',
 
         ], [
             'title.required' => 'Questo campo è obbligatorio',
             'title.unique' => 'Questo progetto esiste già',
             'description.required' => 'Aggiungi una descrizione del progetto',
-            // 'image.url' => 'Url non valido'
+            'image.image' => 'Il file caricato non è valido'
         ]);
 
         $project = new Project();
 
-        try {
-            $img_url = Storage::putFile('image', $data['image']);
-        } catch (\Exception $e) {
-            dd($e->getMessage());
-        }
-        // if (array_key_exists('image', $data)) {
+        // try {
         //     $img_url = Storage::putFile('image', $data['image']);
-        //     $data['image'] = $img_url;
+        // } catch (\Exception $e) {
+        //     dd($e->getMessage());
         // }
+        if (array_key_exists('image', $data)) {
+            $img_url = Storage::putFile('project_images', $data['image']);
+            $data['image'] = $img_url;
+        }
 
         $project->slug = Str::class($data['title'], '-');
 
