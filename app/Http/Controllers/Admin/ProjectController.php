@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Project;
 use App\Http\Controllers\Controller;
-use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule as ValidationRule;
+use Illuminate\Support\Str;
 
 class ProjectController extends Controller
 {
@@ -36,20 +36,28 @@ class ProjectController extends Controller
     {
         $data = $request->all();
 
-        // $request->validate([
+        dd($data);
+        $request->validate([
 
-        //     'title' => ['required', 'string', Rule::unique('comics')],
-        //     'description' => 'required|string',
-        //     'image' => ''
-        // ], []);
+            'title' => ['required', 'string', Rule::unique('projects')],
+            'description' => 'required|string',
+            'image' => 'url:http, https',
+
+        ], [
+            'title.required' => 'Questo campo è obbligatorio',
+            'title.unique' => 'Questo progetto esiste già',
+            'description.required' => 'Aggiungi una descrizione del progetto',
+            'image.url' => 'Url non valido'
+        ]);
 
         $project = new Project();
+        $project->slug = Str::class($data['title'], '-');
 
         $project->fill($data);
 
         $project->save();
 
-        return to_route('admin.project.show', $project);
+        return to_route('admin.projects.show', $project);
     }
 
     /**
@@ -71,9 +79,25 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Project $project)
     {
-        //
+        $request->validate([
+
+            'title' => ['required', 'string', Rule::unique('projects')->ignore($project->id)],
+            'description' => 'required|string',
+            'image' => 'url:http, https',
+
+        ], [
+            'title.required' => 'Questo campo è obbligatorio',
+            'title.unique' => 'Questo progetto esiste già',
+            'description.required' => 'Aggiungi una descrizione del progetto',
+            'image.url' => 'Url non valido'
+        ]);
+
+        $data = $request->all();
+        $project->update();
+
+        return to_route('admin.projects.show', $project);
     }
 
     /**
