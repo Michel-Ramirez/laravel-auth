@@ -36,7 +36,7 @@ class ProjectController extends Controller
     {
         $data = $request->all();
 
-
+        dd($data);
         $request->validate([
 
             'title' => ['required', 'string', Rule::unique('projects')],
